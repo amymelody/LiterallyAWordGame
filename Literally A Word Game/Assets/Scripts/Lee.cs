@@ -13,5 +13,22 @@ public class Lee : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.D)) {
 			transform.rigidbody.velocity = new Vector3(10,0,0);
 		}
+		if (Input.GetKeyDown(KeyCode.A)) {
+			transform.rigidbody.velocity = new Vector3(-10,0,0);
+		}
+		if (Input.GetKeyUp(KeyCode.D)) {
+			if (Input.GetKey(KeyCode.A)) {
+				transform.rigidbody.velocity = new Vector3(-10,0,0);
+			} else {
+				transform.rigidbody.velocity = new Vector3(0,0,0);
+			}
+		}
+		if (Input.GetKeyUp(KeyCode.A)) {
+			if (Input.GetKey(KeyCode.D)) {
+				transform.rigidbody.velocity = new Vector3(10,0,0);
+			} else {
+				transform.rigidbody.velocity = new Vector3(0,0,0);
+			}
+		}
 	}
 }
