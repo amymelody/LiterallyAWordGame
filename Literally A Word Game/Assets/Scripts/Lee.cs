@@ -3,6 +3,12 @@ using System.Collections;
 
 public class Lee : MonoBehaviour {
 
+	enum MovementDirection {Left, Right, None};
+
+	public float movementSpeed;
+	private bool canJump = false;
+	private MovementDirection direction = MovementDirection.None;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -10,25 +16,64 @@ public class Lee : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//Handle left and right movement
+		switch (direction) {
+			case MovementDirection.None:
+				setXVelocity(0);
+				break;
+			case MovementDirection.Left:
+				setXVelocity(-movementSpeed);
+				break;
+			case MovementDirection.Right:
+				setXVelocity(movementSpeed);
+				break;
+		}
+
 		if (Input.GetKeyDown(KeyCode.D)) {
-			transform.rigidbody.velocity = new Vector3(10,0,0);
+			direction = MovementDirection.Right;
 		}
 		if (Input.GetKeyDown(KeyCode.A)) {
-			transform.rigidbody.velocity = new Vector3(-10,0,0);
+			direction = MovementDirection.Left;
 		}
 		if (Input.GetKeyUp(KeyCode.D)) {
 			if (Input.GetKey(KeyCode.A)) {
-				transform.rigidbody.velocity = new Vector3(-10,0,0);
+				direction = MovementDirection.Left;
 			} else {
-				transform.rigidbody.velocity = new Vector3(0,0,0);
+				direction = MovementDirection.None;
 			}
 		}
 		if (Input.GetKeyUp(KeyCode.A)) {
 			if (Input.GetKey(KeyCode.D)) {
-				transform.rigidbody.velocity = new Vector3(10,0,0);
+				direction = MovementDirection.Right;
 			} else {
-				transform.rigidbody.velocity = new Vector3(0,0,0);
+				direction = MovementDirection.None;
 			}
 		}
+
+		//Handle jumping
+		if (canJump && Input.GetKeyDown(KeyCode.W)) {
+			canJump = false;
+			setYVelocity(10f);
+		}
+	}
+
+	void OnCollisionEnter(Collision collision) {
+		if (collision.gameObject.tag.Equals("Floor")) {
+
+			RaycastHit myRayHit;
+
+			if (Physics.Raycast(transform.position, -Vector3.up, out myRayHit, 0.5f)) {
+				canJump = true;
+			}
+
+		}
+	}
+
+	void setXVelocity(float x) {
+		transform.rigidbody.velocity = new Vector3(x,transform.rigidbody.velocity.y,0);
+	}
+
+	void setYVelocity(float y) {
+		transform.rigidbody.velocity = new Vector3(transform.rigidbody.velocity.x,y,0);
 	}
 }
