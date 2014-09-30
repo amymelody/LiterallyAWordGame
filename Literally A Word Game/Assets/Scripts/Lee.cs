@@ -122,11 +122,19 @@ public class Lee : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag.Equals("Floor")) {
-			RaycastHit myRayHit;
-
-			if (Physics.Raycast(transform.position, -Vector3.up, out myRayHit, transform.localScale.y / 2.0f)) {
+			if (Physics.Raycast(transform.position, -Vector3.up, transform.localScale.y / 2.0f) ||
+			    Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2.0f, 0, 0),
+			                -Vector3.up, transform.localScale.y / 2.0f) ||
+			    Physics.Raycast(transform.position - new Vector3(transform.localScale.x / 2.0f, 0, 0),
+			                -Vector3.up, transform.localScale.y / 2.0f)) {
 				canJump = true;
 			}
+		}
+	}
+
+	void OnCollisionExit(Collision collision) {
+		if (collision.gameObject.tag.Equals("Floor")) {
+				canJump = false;
 		}
 	}
 
