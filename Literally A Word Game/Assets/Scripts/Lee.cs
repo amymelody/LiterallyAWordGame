@@ -9,14 +9,19 @@ public class Lee : MonoBehaviour {
 
 	private ArrayList closeObjects;
 	private GameObject pickedUpObject;
-	private bool canJump = false;
-	private bool onClimbable = false;
-	private bool facingRight = true;
+	private bool canJump;
+	private bool onClimbable;
+	private bool facingRight;
 	private MovementDirection direction = MovementDirection.None;
+	private int numObjectsTouching;
 
 	// Use this for initialization
 	void Start () {
 		closeObjects = new ArrayList();
+		numObjectsTouching = 0;
+		canJump = false;
+		onClimbable = false;
+		facingRight = true;
 	}
 	
 	// Update is called once per frame
@@ -80,8 +85,18 @@ public class Lee : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.E)) {
 			if (!pickedUpObject) {
 				pickedUpObject = GetClosestObject();
+				if (pickedUpObject) {
+					pickedUpObject.rigidbody.useGravity = false;
+				}
 			} else if (canJump) {
-				pickedUpObject = null;
+				Item item = (Item)pickedUpObject.GetComponent("Item");
+				if (item) {
+					if (item.canBeDropped) {
+						pickedUpObject.rigidbody.useGravity = true;
+						pickedUpObject.rigidbody.velocity = -Vector3.up;
+						pickedUpObject = null;
+					}
+				}
 			}
 		}
 
@@ -122,6 +137,7 @@ public class Lee : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag.Equals("Floor")) {
+			numObjectsTouching++;
 			if (Physics.Raycast(transform.position, -Vector3.up, transform.localScale.y / 2.0f) ||
 			    Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2.0f, 0, 0),
 			                -Vector3.up, transform.localScale.y / 2.0f) ||
@@ -134,7 +150,10 @@ public class Lee : MonoBehaviour {
 
 	void OnCollisionExit(Collision collision) {
 		if (collision.gameObject.tag.Equals("Floor")) {
+			numObjectsTouching--;
+			if (numObjectsTouching == 0) {
 				canJump = false;
+			}
 		}
 	}
 
