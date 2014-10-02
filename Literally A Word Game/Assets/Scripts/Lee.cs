@@ -95,6 +95,7 @@ public class Lee : MonoBehaviour {
 						pickedUpObject.rigidbody.useGravity = true;
 						pickedUpObject.rigidbody.velocity = -Vector3.up;
 						pickedUpObject = null;
+                        pickedUpObject.GetComponent<LetterScript>().Dropped();
 					}
 				}
 			}

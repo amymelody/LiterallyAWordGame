@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Item.cs" />
      <Compile Include="Assets\Scripts\Lee.cs" />
+     <Compile Include="Assets\Scripts\LetterScript.cs" />
+     <Compile Include="Assets\Scripts\LetterTrackerScript.cs" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
