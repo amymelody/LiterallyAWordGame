@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item : MonoBehaviour {
+public class LetterScript : MonoBehaviour {
 
 	public bool canBeDropped;
 
