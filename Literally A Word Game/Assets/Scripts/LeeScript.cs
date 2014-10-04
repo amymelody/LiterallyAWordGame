@@ -159,17 +159,24 @@ public class LeeScript : MonoBehaviour {
 
 		//Move picked up object
 		if (pickedUpObject) {
+			float xOffset;
+			float yOffset;
+			if (onBalloons) {
+				xOffset = transform.localScale.x / 2.0f;
+				yOffset = pickedUpObject.transform.localScale.y / 2.0f;
+			} else {
+				xOffset = transform.localScale.x / 2.0f + pickedUpObject.transform.localScale.x / 2.0f;
+				yOffset = 0;
+			}
 			if (facingRight) {
 				pickedUpObject.transform.position = 
-					new Vector3(transform.position.x + transform.localScale.x / 2.0f +
-					            pickedUpObject.transform.localScale.x / 2.0f,
-					            transform.position.y,
+					new Vector3(transform.position.x + xOffset,
+					            transform.position.y + yOffset,
 					            pickedUpObject.transform.position.z);
 			} else {
 				pickedUpObject.transform.position = 
-					new Vector3(transform.position.x - transform.localScale.x / 2.0f -
-					            pickedUpObject.transform.localScale.x / 2.0f,
-					            transform.position.y,
+					new Vector3(transform.position.x - xOffset,
+					            transform.position.y + yOffset,
 					            pickedUpObject.transform.position.z);
 			}
 		}
