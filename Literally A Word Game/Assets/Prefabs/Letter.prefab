@@ -14,7 +14,7 @@ GameObject:
   - 54: {fileID: 5400000}
   - 65: {fileID: 6500000}
   m_Layer: 0
-  m_Name: Item
+  m_Name: Letter
   m_TagString: CanPickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

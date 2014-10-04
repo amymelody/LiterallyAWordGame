@@ -46,8 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CloudsTransitionScript.cs" />
+     <Compile Include="Assets\Scripts\ItemScript.cs" />
      <Compile Include="Assets\Scripts\LeeScript.cs" />
-     <Compile Include="Assets\Scripts\LetterScript.cs" />
+     <Compile Include="Assets\Scripts\MainRoomScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">

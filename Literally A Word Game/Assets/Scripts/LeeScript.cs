@@ -16,6 +16,7 @@ public class LeeScript : MonoBehaviour {
 	private bool onLadder;
 	private bool onTopOfLadder;
 	private bool facingRight;
+	private bool onBalloons;
 	private MovementDirection direction = MovementDirection.None;
 	private int numObjectsTouching;
 
@@ -35,6 +36,7 @@ public class LeeScript : MonoBehaviour {
 		touchingLadder = false;
 		onTopOfLadder = false;
 		facingRight = true;
+		onBalloons = false;
 		leftKey = KeyCode.LeftArrow;
 		rightKey = KeyCode.RightArrow;
 		jumpKey = KeyCode.Space;
@@ -85,9 +87,14 @@ public class LeeScript : MonoBehaviour {
 			}
 
 			//Handle jumping
-			if (canJump && Input.GetKeyDown(jumpKey)) {
-				canJump = false;
-				setYVelocity(jumpSpeed);
+			if (!onBalloons) {
+				if (canJump && Input.GetKeyDown(jumpKey)) {
+					canJump = false;
+					setYVelocity(jumpSpeed);
+				}
+				if (!canJump && Input.GetKeyUp(jumpKey) && rigidbody.velocity.y > 0) {
+					setYVelocity(0);
+				}
 			}
 
 			//Pick up & drop objects
@@ -95,15 +102,30 @@ public class LeeScript : MonoBehaviour {
 				if (!pickedUpObject) {
 					pickedUpObject = GetClosestObject();
 					if (pickedUpObject) {
-						pickedUpObject.rigidbody.useGravity = false;
+						if (pickedUpObject.rigidbody != null) {
+							pickedUpObject.rigidbody.useGravity = false;
+						}
+						if (pickedUpObject.name.Equals("UPBalloons")) {
+							setYVelocity(movementSpeed);
+							rigidbody.useGravity = false;
+							onBalloons = true;
+						}
 					}
-				} else if (canJump) {
-					LetterScript letterScript = (LetterScript)pickedUpObject.GetComponent("LetterScript");
-					if (letterScript) {
-						if (letterScript.canBeDropped) {
-							pickedUpObject.rigidbody.useGravity = true;
-							pickedUpObject.rigidbody.velocity = -Vector3.up;
-							pickedUpObject = null;
+				} else if (canJump || onBalloons) {
+					if (onBalloons) {
+						onBalloons = false;
+						setYVelocity(0);
+						rigidbody.useGravity = true;
+						pickedUpObject.rigidbody.velocity = new Vector3(0,movementSpeed,0);
+						pickedUpObject = null;
+					} else {
+						ItemScript letterScript = (ItemScript)pickedUpObject.GetComponent("ItemScript");
+						if (letterScript) {
+							if (letterScript.canBeDropped) {
+								pickedUpObject.rigidbody.useGravity = true;
+								pickedUpObject.rigidbody.velocity = -Vector3.up;
+								pickedUpObject = null;
+							}
 						}
 					}
 				}
@@ -119,6 +141,7 @@ public class LeeScript : MonoBehaviour {
 				transform.position = new Vector3(currentLadder.transform.position.x, 
 				                                 transform.position.y,
 				                                 transform.position.z);
+				setXVelocity(0);
 			}
 		}
 
@@ -156,13 +179,9 @@ public class LeeScript : MonoBehaviour {
 		float closestDistance = 99999f;
 		GameObject closestObject = null;
 		foreach (GameObject obj in closeObjects) {
-			float distance = obj.transform.position.x - transform.position.x;
-			if (facingRight && distance >= 0 && distance < closestDistance) {
+			float distance = Mathf.Abs(obj.transform.position.x - transform.position.x);
+			if (distance < closestDistance) {
 				closestDistance = distance;
-				closestObject = obj;
-			}
-			if (!facingRight && distance <= 0 && -distance < closestDistance) {
-				closestDistance = -distance;
 				closestObject = obj;
 			}
 		}
@@ -172,14 +191,17 @@ public class LeeScript : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag.Equals("Floor")) {
 			numObjectsTouching++;
-			if (Physics.Raycast(transform.position, -Vector3.up, transform.localScale.y / 2.0f) ||
+			RaycastHit rayHit;
+			if (Physics.Raycast(transform.position, -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
 			    Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2.0f, 0, 0),
-			                -Vector3.up, transform.localScale.y / 2.0f) ||
+			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
 			    Physics.Raycast(transform.position - new Vector3(transform.localScale.x / 2.0f, 0, 0),
-			                -Vector3.up, transform.localScale.y / 2.0f)) {
-				canJump = true;
-				onLadder = false;
-				rigidbody.useGravity = true;
+			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f)) {
+				if (!rayHit.collider.gameObject.tag.Equals("Climbable")) {
+					canJump = true;
+					onLadder = false;
+					rigidbody.useGravity = true;
+				}
 			}
 		}
 	}
@@ -198,7 +220,11 @@ public class LeeScript : MonoBehaviour {
 			touchingLadder = true;
 			currentLadder = collider.gameObject;
 			RaycastHit rayHit;
-			if (Physics.Raycast(transform.position, -Vector3.up, out rayHit, transform.localScale.y / 2.0f)) {
+			if (Physics.Raycast(transform.position, -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
+			    Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2.0f, 0, 0),
+			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
+			    Physics.Raycast(transform.position - new Vector3(transform.localScale.x / 2.0f, 0, 0),
+			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f)) {
 				if (rayHit.collider.gameObject.tag.Equals("Climbable")) {
 					setYVelocity(0);
 					rigidbody.useGravity = false;
@@ -215,11 +241,30 @@ public class LeeScript : MonoBehaviour {
 
 	void OnTriggerExit(Collider collider) {
 		if (collider.gameObject.tag.Equals("Climbable")) {
-			currentLadder = null;
-			onTopOfLadder = false;
-			touchingLadder = false;
-			onLadder = false;
-			rigidbody.useGravity = true;
+			RaycastHit rayHit;
+			if (Physics.Raycast(transform.position, -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
+			    Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2.0f, 0, 0),
+			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
+			    Physics.Raycast(transform.position - new Vector3(transform.localScale.x / 2.0f, 0, 0),
+			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f)) {
+				if (!rayHit.collider.gameObject.tag.Equals("Climbable")) {
+					currentLadder = null;
+					onTopOfLadder = false;
+					touchingLadder = false;
+					onLadder = false;
+					if (!pickedUpObject || !pickedUpObject.name.Equals("UPBalloons")) {
+						rigidbody.useGravity = true;
+					}
+				}
+			} else {
+				currentLadder = null;
+				onTopOfLadder = false;
+				touchingLadder = false;
+				onLadder = false;
+				if (!pickedUpObject || !pickedUpObject.name.Equals("UPBalloons")) {
+					rigidbody.useGravity = true;
+				}
+			}
 		}
 
 		if (collider.gameObject.tag.Equals("Letter")) {
