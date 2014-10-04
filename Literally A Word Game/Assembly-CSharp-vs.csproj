@@ -48,11 +48,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CloudsTransitionScript.cs" />
      <Compile Include="Assets\Scripts\ItemScript.cs" />
-     <Compile Include="Assets\Scripts\Lee.cs" />
-     <Compile Include="Assets\Scripts\Lee.cs.BACKUP.7016.cs" />
-     <Compile Include="Assets\Scripts\Lee.cs.BASE.7016.cs" />
-     <Compile Include="Assets\Scripts\Lee.cs.LOCAL.7016.cs" />
-     <Compile Include="Assets\Scripts\Lee.cs.REMOTE.7016.cs" />
      <Compile Include="Assets\Scripts\LeeScript.cs" />
      <Compile Include="Assets\Scripts\LetterScript.cs" />
      <Compile Include="Assets\Scripts\LetterTrackerScript.cs" />
