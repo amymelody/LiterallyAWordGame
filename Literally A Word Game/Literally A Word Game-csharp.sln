@@ -1,9 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{1FED5A8B-C607-ACDB-04E6-A029F4A59582}") = "Literally A Word Game", "Assembly-CSharp-firstpass-vs.csproj", "{A5EC7A65-84B5-FEC2-2327-01D291B0487A}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass-vs", "Assembly-CSharp-firstpass-vs.csproj", "{A5EC7A65-84B5-FEC2-2327-01D291B0487A}"
 EndProject
-Project("{1FED5A8B-C607-ACDB-04E6-A029F4A59582}") = "Literally A Word Game", "Assembly-CSharp-vs.csproj", "{69A0C2F4-AAAA-560C-F579-04BEEA846575}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-vs", "Assembly-CSharp-vs.csproj", "{69A0C2F4-AAAA-560C-F579-04BEEA846575}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,7 +22,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-														GlobalSection(MonoDevelopProperties) = preSolution
+	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -41,5 +40,4 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
-
 EndGlobal
