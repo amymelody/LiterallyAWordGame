@@ -86,16 +86,17 @@ public class Lee : MonoBehaviour {
 			if (!pickedUpObject) {
 				pickedUpObject = GetClosestObject();
 				if (pickedUpObject) {
-					pickedUpObject.rigidbody.useGravity = false;
+                    pickedUpObject.rigidbody.useGravity = false;
+                    pickedUpObject.GetComponent<LetterScript>().PickedUp();
 				}
 			} else if (canJump) {
 				Item item = (Item)pickedUpObject.GetComponent("Item");
 				if (item) {
-					if (item.canBeDropped) {
+                    if (item.canBeDropped) {
 						pickedUpObject.rigidbody.useGravity = true;
-						pickedUpObject.rigidbody.velocity = -Vector3.up;
-						pickedUpObject = null;
+                        pickedUpObject.rigidbody.velocity = -Vector3.up;
                         pickedUpObject.GetComponent<LetterScript>().Dropped();
+                        pickedUpObject = null;
 					}
 				}
 			}
