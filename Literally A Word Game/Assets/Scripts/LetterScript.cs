@@ -105,18 +105,14 @@ public class LetterScript : MonoBehaviour
                         }
                         else
                         {
-                            foreach(gameObject
-                            word.Add(
-                            int myNewIndex = letterWord.IndexOf(l);
-                            letterWord.Insert(myNewIndex, this.gameObject);
-                            word = letterWord;
-                            for (int i = myNewIndex; i < letterWord.Count; i++)
+                            foreach(GameObject i in letterWord)
                             {
-                                float tempX = letterWord[i].transform.position.x + letterWord[i].transform.lossyScale.x;
-                                letterWord[i].transform.position = new Vector3(tempX, letterWord[i].transform.position.y, letterWord[i].transform.position.z);
+                                float tempX = word[word.Count - 1].transform.position.x + word[word.Count - 1].transform.lossyScale.x;
+                                i.transform.position = new Vector3(tempX, i.transform.position.y, i.transform.position.z);
+                                word.Add(i);
                             }
+                            letterWord = word;
                         }
-
                     }
                 }
                 else if (myX >= letterX && myX - 1.5f * mySizeX <= letterX)   //If my letter is to the left
@@ -146,7 +142,28 @@ public class LetterScript : MonoBehaviour
                             }
                         }
                     }
-                    //If you're connecting two strings
+                    else
+                    {
+                        //If you're appending the second word to the beginning
+                        List<GameObject> letterWord = l.GetComponent<LetterScript>().word;
+                        if (letterWord.Count == 0)
+                        {
+                            letterX = this.gameObject.transform.position.x - l.transform.lossyScale.x;
+                            l.transform.position = new Vector3(letterX, l.transform.position.y, l.transform.position.z);
+                            word.Add(l);
+                            letterWord = word;
+                        }
+                        else
+                        {
+                            for(int i = letterWord.Count - 1; i >= 0; i--)
+                            {
+                                float tempX = word[0].transform.position.x - letterWord[i].transform.lossyScale.x;
+                                letterWord[i].transform.position = new Vector3(tempX, letterWord[i].transform.position.y, letterWord[i].transform.position.z);
+                                word.Insert(0, letterWord[i]);
+                            }
+                            letterWord = word;
+                        }
+                    }
                 }
             }
         }
