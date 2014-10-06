@@ -8,7 +8,7 @@ public class LetterTrackerScript : MonoBehaviour
     //Should replace with a "enter new area" function
 	void Start ()
     {
-        letters = GameObject.FindGameObjectsWithTag("CanPickUp");
+        letters = GameObject.FindGameObjectsWithTag("Letter");
 	}
 
 	void Update ()
