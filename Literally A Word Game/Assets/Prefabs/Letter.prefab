@@ -13,9 +13,11 @@ GameObject:
   - 65: {fileID: 6500002}
   - 54: {fileID: 5400000}
   - 65: {fileID: 6500000}
-  m_Layer: 0
+  - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
+  m_Layer: 8
   m_Name: Letter
-  m_TagString: CanPickUp
+  m_TagString: Letter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +100,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 1, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64ad2f761479b34cb59c0d7e548a5ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  word: []
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeDropped: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

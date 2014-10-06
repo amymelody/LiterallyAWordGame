@@ -8,7 +8,7 @@ public class LetterTrackerScript : MonoBehaviour
     //Should replace with a "enter new area" function
 	void Start ()
     {
-        letters = GameObject.FindGameObjectsWithTag("CanPickUp");
+        letters = GameObject.FindGameObjectsWithTag("Letter");
 	}
 
 	void Update ()
@@ -19,5 +19,18 @@ public class LetterTrackerScript : MonoBehaviour
     public GameObject[] GetLetterArray()
     {
         return letters;
+    }
+
+    public void WordFind(string word)
+    {
+        switch (word)
+        {
+            case "TREE":
+                //SUMMON TREE
+                print("SUMMON TREE");
+                break;
+            default:
+                break;
+        }
     }
 }

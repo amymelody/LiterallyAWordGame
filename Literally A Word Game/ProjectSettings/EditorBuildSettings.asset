@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/MainRoom.unity
   - enabled: 1
     path: Assets/Scenes/CloudsTransition.unity
+  - enabled: 1
+    path: Assets/Scenes/mainRoom.unity
