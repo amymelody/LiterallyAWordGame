@@ -229,6 +229,7 @@ public class LetterScript : MonoBehaviour
             }
         }
         print("***Chosen letter, word: " + this.GetWord());
+        GameObject.Find("Lee").GetComponent<LetterTrackerScript>().WordFind(this.GetWord());
     }
 
     public string GetWord()

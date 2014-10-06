@@ -20,4 +20,17 @@ public class LetterTrackerScript : MonoBehaviour
     {
         return letters;
     }
+
+    public void WordFind(string word)
+    {
+        switch (word)
+        {
+            case "TREE":
+                //SUMMON TREE
+                print("SUMMON TREE");
+                break;
+            default:
+                break;
+        }
+    }
 }
