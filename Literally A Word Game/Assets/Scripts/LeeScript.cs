@@ -105,7 +105,6 @@ public class LeeScript : MonoBehaviour {
 						if (pickedUpObject.rigidbody != null) {
 							pickedUpObject.rigidbody.useGravity = false;
                             pickedUpObject.GetComponent<LetterScript>().PickedUp();
-                            pickedUpObject.GetComponent<LetterScript>().GetWord();
 						}
 						if (pickedUpObject.name.Equals("UPBalloons")) {
 							setYVelocity(movementSpeed);
@@ -127,7 +126,6 @@ public class LeeScript : MonoBehaviour {
 								pickedUpObject.rigidbody.useGravity = true;
                                 pickedUpObject.rigidbody.velocity = -Vector3.up;
                                 pickedUpObject.GetComponent<LetterScript>().Dropped();
-                                pickedUpObject.GetComponent<LetterScript>().GetWord();
 								pickedUpObject = null;
 							}
 						}

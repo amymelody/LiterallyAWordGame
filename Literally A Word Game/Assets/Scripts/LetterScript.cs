@@ -39,6 +39,7 @@ public class LetterScript : MonoBehaviour
                             }
                             if (letterWord.Count == 1) { letterWord.Clear(); }
                             l.GetComponent<LetterScript>().word = new List<GameObject>(letterWord);
+                            print("Letter: " + lLetter + ", Word: " + l.GetComponent<LetterScript>().GetWord());
                             break;
                         }
                         else        //letter l is in the back of the word
@@ -49,6 +50,7 @@ public class LetterScript : MonoBehaviour
                             }
                             if (letterWord.Count == 1) { letterWord.Clear(); }
                             l.GetComponent<LetterScript>().word = new List<GameObject>(letterWord);
+                            print("Letter: " + lLetter + ", Word: " + l.GetComponent<LetterScript>().GetWord());
                             break;
                         }
 
@@ -99,37 +101,61 @@ public class LetterScript : MonoBehaviour
                             {
                                 int myNewIndex = letterWord.IndexOf(l);
                                 letterWord.Insert(myNewIndex, this.gameObject);
-                                l.GetComponent<LetterScript>().word = new List<GameObject>(letterWord);
-                                word = new List<GameObject>(letterWord);
+                                foreach (GameObject j in letterWord)
+                                {
+                                    j.GetComponent<LetterScript>().word = new List<GameObject>(letterWord);
+                                    string jLetter = j.GetComponent<LetterScript>().letter;
+                                }
+                                float tempX;
                                 for (int i = myNewIndex; i < word.Count; i++)
                                 {
-                                    float tempX = word[i].transform.position.x + word[i].transform.lossyScale.x;
-                                    word[i].transform.position = new Vector3(tempX, word[i].transform.position.y, word[i].transform.position.z);
+                                    if (i == 0)
+                                    {
+                                        tempX = word[i + 1].transform.position.x - word[i + 1].transform.lossyScale.x;
+                                        word[i].transform.position = new Vector3(tempX, word[i + 1].transform.position.y, word[i + 1].transform.position.z);
+                                    }
+                                    else
+                                    {
+                                        tempX = word[i - 1].transform.position.x + word[i - 1].transform.lossyScale.x;
+                                        word[i].transform.position = new Vector3(tempX, word[i - 1].transform.position.y, word[i - 1].transform.position.z);
+                                    }
                                 }
                             }
                         }
-                        else
+                        /*else
                         {
-                            //If you're appending the second word to the end
-                            List<GameObject> letterWord = new List<GameObject>(l.GetComponent<LetterScript>().word);
-                            if (letterWord.Count == 0)
+                            bool difWord = true;
+                            foreach(GameObject i in word)
                             {
-                                letterX = this.gameObject.transform.position.x + mySizeX;
-                                l.transform.position = new Vector3(letterX, l.transform.position.y, l.transform.position.z);
-                                word.Add(l);
-                                l.GetComponent<LetterScript>().word = new List<GameObject>(word);
+                                if(l == i) { difWord = false; }
                             }
-                            else
+                            if (difWord)
                             {
-                                for(int i = 0; i < letterWord.Count; i++)
+                                //If you're appending the second word to the end
+                                List<GameObject> letterWord = new List<GameObject>(l.GetComponent<LetterScript>().word);
+                                if (letterWord.Count == 0)
                                 {
-                                    float tempX = word[word.Count - 1].transform.position.x + word[word.Count - 1].transform.lossyScale.x;
-                                    letterWord[i].transform.position = new Vector3(tempX, letterWord[i].transform.position.y, letterWord[i].transform.position.z);
-                                    word.Add(letterWord[i]);
+                                    letterX = this.gameObject.transform.position.x + mySizeX;
+                                    l.transform.position = new Vector3(letterX, l.transform.position.y, l.transform.position.z);
+                                    word.Add(l);
+                                    l.GetComponent<LetterScript>().word = new List<GameObject>(word);
                                 }
-                                l.GetComponent<LetterScript>().word = new List<GameObject>(word);
+                                else
+                                {
+                                    float tempX;
+                                    for (int i = 0; i < letterWord.Count; i++)
+                                    {
+                                        tempX = word[word.Count - 1].transform.position.x + word[word.Count - 1].transform.lossyScale.x;
+                                        letterWord[i].transform.position = new Vector3(tempX, letterWord[i].transform.position.y, letterWord[i].transform.position.z);
+                                        word.Add(letterWord[i]);
+                                    }
+                                    for(int i = 0; i < word.Count; i++)
+                                    {
+                                        word[i].GetComponent<LetterScript>().word = new List<GameObject>(word);
+                                    }
+                                }
                             }
-                        }
+                        }*/
                     }
                     else if (myX >= letterX && myX - 1.5f * mySizeX <= letterX)   //If my letter is towards the back
                     {
@@ -149,41 +175,60 @@ public class LetterScript : MonoBehaviour
                             {
                                 int myNewIndex = letterWord.IndexOf(l) + 1;
                                 letterWord.Insert(myNewIndex, this.gameObject);
-                                l.GetComponent<LetterScript>().word = new List<GameObject>(letterWord);
-                                word = new List<GameObject>(letterWord);
+                                foreach (GameObject j in letterWord)
+                                {
+                                    j.GetComponent<LetterScript>().word = new List<GameObject>(letterWord);
+                                    string jLetter = j.GetComponent<LetterScript>().letter;
+                                }
+                                float tempX;
                                 for (int i = myNewIndex; i < word.Count; i++)
                                 {
-                                    float tempX = word[i].transform.position.x + word[i].transform.lossyScale.x;
-                                    word[i].transform.position = new Vector3(tempX, word[i].transform.position.y, word[i].transform.position.z);
+                                    //always at least the second letter, so i - 1 is safe
+                                    tempX = word[i - 1].transform.position.x + word[i - 1].transform.lossyScale.x;
+                                    word[i].transform.position = new Vector3(tempX, word[i - 1].transform.position.y, word[i - 1].transform.position.z);
                                 }
                             }
                         }
-                        else
+                        /*else
                         {
-                            //If you're appending the second word to the beginning
-                            List<GameObject> letterWord = new List<GameObject>(l.GetComponent<LetterScript>().word);
-                            if (letterWord.Count == 0)
+                            bool difWord = true;
+                            foreach(GameObject i in word)
                             {
-                                letterX = this.gameObject.transform.position.x - l.transform.lossyScale.x;
-                                l.transform.position = new Vector3(letterX, l.transform.position.y, l.transform.position.z);
-                                word.Add(l);
-                                l.GetComponent<LetterScript>().word = new List<GameObject>(word);
+                                if(l == i) { difWord = false; }
                             }
-                            else
+                            if (difWord)
                             {
-                                for (int i = letterWord.Count - 1; i >= 0; i--)
+                                //If you're appending the second word to the beginning
+                                List<GameObject> letterWord = new List<GameObject>(l.GetComponent<LetterScript>().word);
+                                if (letterWord.Count == 0)
                                 {
-                                    float tempX = word[0].transform.position.x - letterWord[i].transform.lossyScale.x;
-                                    letterWord[i].transform.position = new Vector3(tempX, letterWord[i].transform.position.y, letterWord[i].transform.position.z);
-                                    word.Insert(0, letterWord[i]);
+                                    letterX = this.gameObject.transform.position.x - l.transform.lossyScale.x;
+                                    l.transform.position = new Vector3(letterX, l.transform.position.y, l.transform.position.z);
+                                    word.Insert(0, l);
+                                    l.GetComponent<LetterScript>().word = new List<GameObject>(word);
                                 }
-                                l.GetComponent<LetterScript>().word = new List<GameObject>(word);
+                                else
+                                {
+                                    float tempX;
+                                    for (int i = letterWord.Count - 1; i >= 0; i--)
+                                    {
+                                        tempX = word[0].transform.position.x - letterWord[i].transform.lossyScale.x;
+                                        letterWord[i].transform.position = new Vector3(tempX, letterWord[i].transform.position.y, letterWord[i].transform.position.z);
+                                        word.Insert(0, letterWord[i]);
+                                    }
+                                    for (int i = 0; i < word.Count; i++)
+                                    {
+                                        word[i].GetComponent<LetterScript>().word = new List<GameObject>(word);
+                                    }
+                                }
                             }
-                        }
+                        }*/
                     }
                 }
+                print("Letter: " + lLetter + ", Word: " + l.GetComponent<LetterScript>().GetWord());
             }
         }
+        print("***Chosen letter, word: " + this.GetWord());
     }
 
     public string GetWord()
@@ -193,7 +238,6 @@ public class LetterScript : MonoBehaviour
         {
             stringWord += l.GetComponent<LetterScript>().letter;
         }
-        print(stringWord);
         return stringWord;
     }
 }
