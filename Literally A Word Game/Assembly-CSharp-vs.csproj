@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\LetterScript.cs" />
      <Compile Include="Assets\Scripts\LetterTrackerScript.cs" />
      <Compile Include="Assets\Scripts\MainRoomScript.cs" />
+     <Compile Include="Assets\Scripts\RoomStateScript.cs" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>

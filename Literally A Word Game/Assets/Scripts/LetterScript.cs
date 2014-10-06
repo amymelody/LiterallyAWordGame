@@ -229,7 +229,7 @@ public class LetterScript : MonoBehaviour
             }
         }
         print("***Chosen letter, word: " + this.GetWord());
-        GameObject.Find("Lee").GetComponent<LetterTrackerScript>().WordFind(this.GetWord());
+        GameObject.Find("Lee").GetComponent<LetterTrackerScript>().WordFind(this.GetWord(), GetWordCenterPosition());
     }
 
     public string GetWord()
@@ -241,4 +241,11 @@ public class LetterScript : MonoBehaviour
         }
         return stringWord;
     }
+
+	Vector3 GetWordCenterPosition() {
+		int lettersBeforeMe = word.IndexOf(gameObject);
+		float x = transform.position.x - transform.localScale.x / 2.0f - transform.localScale.x * (float)lettersBeforeMe;
+		x += (transform.localScale.x * word.Count) / 2.0f;
+		return new Vector3(x, transform.position.y, transform.position.z);
+	}
 }

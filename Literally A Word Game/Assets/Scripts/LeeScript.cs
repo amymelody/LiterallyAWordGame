@@ -7,8 +7,8 @@ public class LeeScript : MonoBehaviour {
 
 	public float movementSpeed;
 	public float jumpSpeed;
+	public ArrayList closeObjects;
 
-	private ArrayList closeObjects;
 	private GameObject pickedUpObject;
 	private GameObject currentLadder;
 	private bool canJump;
@@ -100,18 +100,20 @@ public class LeeScript : MonoBehaviour {
 			//Pick up & drop objects
 			if (Input.GetKeyDown (pickUpKey)) {
 				if (!pickedUpObject) {
+					//Pick Up Object
 					pickedUpObject = GetClosestObject();
 					if (pickedUpObject) {
 						if (pickedUpObject.rigidbody != null) {
 							pickedUpObject.rigidbody.useGravity = false;
                             pickedUpObject.GetComponent<LetterScript>().PickedUp();
 						}
-						if (pickedUpObject.name.Equals("UPBalloons")) {
+						if (pickedUpObject.name.Contains("UPBalloons")) {
 							setYVelocity(movementSpeed);
 							rigidbody.useGravity = false;
 							onBalloons = true;
 						}
 					}
+					//Drop Object
 				} else if (canJump || onBalloons) {
 					if (onBalloons) {
 						onBalloons = false;
@@ -229,11 +231,12 @@ public class LeeScript : MonoBehaviour {
 			touchingLadder = true;
 			currentLadder = collider.gameObject;
 			RaycastHit rayHit;
-			if (Physics.Raycast(transform.position, -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
-			    Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2.0f, 0, 0),
-			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
-			    Physics.Raycast(transform.position - new Vector3(transform.localScale.x / 2.0f, 0, 0),
-			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f)) {
+			if (Physics.Raycast(transform.position - new Vector3(0, transform.localScale.y / 4.0f, 0), 
+			                    -Vector3.up, out rayHit, transform.localScale.y / 4.0f) ||
+			    Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2.0f, -transform.localScale.y / 4.0f, 0),
+			                -Vector3.up, out rayHit, transform.localScale.y / 4.0f) ||
+			    Physics.Raycast(transform.position - new Vector3(transform.localScale.x / 2.0f, transform.localScale.y / 4.0f, 0),
+			                -Vector3.up, out rayHit, transform.localScale.y / 4.0f)) {
 				if (rayHit.collider.gameObject.tag.Equals("Climbable")) {
 					setYVelocity(0);
 					rigidbody.useGravity = false;
@@ -251,17 +254,18 @@ public class LeeScript : MonoBehaviour {
 	void OnTriggerExit(Collider collider) {
 		if (collider.gameObject.tag.Equals("Climbable")) {
 			RaycastHit rayHit;
-			if (Physics.Raycast(transform.position, -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
-			    Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2.0f, 0, 0),
-			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
-			    Physics.Raycast(transform.position - new Vector3(transform.localScale.x / 2.0f, 0, 0),
-			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f)) {
+			if (Physics.Raycast(transform.position - new Vector3(0, transform.localScale.y / 4.0f, 0), 
+			                -Vector3.up, out rayHit, transform.localScale.y / 4.0f) ||
+			    Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2.0f, -transform.localScale.y / 4.0f, 0),
+			                -Vector3.up, out rayHit, transform.localScale.y / 4.0f) ||
+			    Physics.Raycast(transform.position - new Vector3(transform.localScale.x / 2.0f, transform.localScale.y / 4.0f, 0),
+			                -Vector3.up, out rayHit, transform.localScale.y / 4.0f)) {
 				if (!rayHit.collider.gameObject.tag.Equals("Climbable")) {
 					currentLadder = null;
 					onTopOfLadder = false;
 					touchingLadder = false;
 					onLadder = false;
-					if (!pickedUpObject || !pickedUpObject.name.Equals("UPBalloons")) {
+					if (!pickedUpObject || !pickedUpObject.name.Contains("UPBalloons")) {
 						rigidbody.useGravity = true;
 					}
 				}
@@ -270,7 +274,7 @@ public class LeeScript : MonoBehaviour {
 				onTopOfLadder = false;
 				touchingLadder = false;
 				onLadder = false;
-				if (!pickedUpObject || !pickedUpObject.name.Equals("UPBalloons")) {
+				if (!pickedUpObject || !pickedUpObject.name.Contains("UPBalloons")) {
 					rigidbody.useGravity = true;
 				}
 			}
