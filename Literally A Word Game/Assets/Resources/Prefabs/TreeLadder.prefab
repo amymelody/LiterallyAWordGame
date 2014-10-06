@@ -12,7 +12,7 @@ GameObject:
   - 65: {fileID: 6500000}
   - 23: {fileID: 2300000}
   m_Layer: 0
-  m_Name: Ladder
+  m_Name: TreeLadder
   m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,8 +25,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.594625, y: .688963413, z: .247997284}
-  m_LocalScale: {x: 1.47015297, y: 4.73912907, z: 1}
+  m_LocalPosition: {x: -4.18899584, y: 6.17830324, z: .247997284}
+  m_LocalScale: {x: .844480157, y: 9.06513786, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!23 &2300000

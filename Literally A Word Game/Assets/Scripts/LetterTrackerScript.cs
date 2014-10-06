@@ -26,8 +26,14 @@ public class LetterTrackerScript : MonoBehaviour
         switch (word)
         {
             case "TREE":
-                //SUMMON TREE
-                print("SUMMON TREE");
+			if (!GameObject.Find("Tree(Clone)")) {
+				GameObject tree = (GameObject)Instantiate(Resources.Load("Prefabs/Tree"));
+				tree.transform.position = new Vector3(-4.268143f, 6.182477f, 1.886556f);
+				tree.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
+
+				GameObject treeLadder = (GameObject)Instantiate(Resources.Load("Prefabs/TreeLadder"));
+				treeLadder.transform.position = new Vector3(-4.268143f, 6.182477f, 0.2479973f);
+			}
                 break;
             default:
                 break;
