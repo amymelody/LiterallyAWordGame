@@ -9,6 +9,9 @@ public class LeeScript : MonoBehaviour {
 	public float jumpSpeed;
 	public ArrayList closeObjects;
 
+	private AudioSource jumpSound;
+	private AudioSource dropSound;
+
 	private GameObject pickedUpObject;
 	private GameObject currentLadder;
 	private bool canJump;
@@ -29,6 +32,10 @@ public class LeeScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Component[] audioSources = GetComponents<AudioSource>();
+		jumpSound = (AudioSource)audioSources[0];
+		dropSound = (AudioSource)audioSources[1];
+
 		closeObjects = new ArrayList();
 		numObjectsTouching = 0;
 		canJump = false;
@@ -90,6 +97,7 @@ public class LeeScript : MonoBehaviour {
 			if (!onBalloons) {
 				if (canJump && Input.GetKeyDown(jumpKey)) {
 					canJump = false;
+					jumpSound.Play();
 					setYVelocity(jumpSpeed);
 				}
 				if (!canJump && Input.GetKeyUp(jumpKey) && rigidbody.velocity.y > 0) {
@@ -125,6 +133,7 @@ public class LeeScript : MonoBehaviour {
 						ItemScript letterScript = (ItemScript)pickedUpObject.GetComponent("ItemScript");
 						if (letterScript) {
 							if (letterScript.canBeDropped) {
+								dropSound.Play();
 								pickedUpObject.rigidbody.useGravity = true;
                                 pickedUpObject.rigidbody.velocity = -Vector3.up;
                                 pickedUpObject.GetComponent<LetterScript>().Dropped();

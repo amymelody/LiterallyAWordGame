@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CloudsTransitionScript.cs" />
+     <Compile Include="Assets\Scripts\CloudsTransitionStateScript.cs" />
      <Compile Include="Assets\Scripts\ItemScript.cs" />
      <Compile Include="Assets\Scripts\LeeScript.cs" />
      <Compile Include="Assets\Scripts\LetterScript.cs" />

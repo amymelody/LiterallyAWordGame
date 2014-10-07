@@ -46,7 +46,6 @@ public class LetterTrackerScript : MonoBehaviour
 				GameObject.Destroy(GameObject.Find("LetterU"));
 				GameObject.Destroy(GameObject.Find("LetterP"));
 				gameObject.GetComponent<LeeScript>().closeObjects.Clear();
-				gameObject.GetComponent<LeeScript>().closeObjects.Add(upBalloons);
 			}
 			break;
 	    default:

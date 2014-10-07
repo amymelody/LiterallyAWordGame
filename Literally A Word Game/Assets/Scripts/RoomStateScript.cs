@@ -4,9 +4,14 @@ using System.Collections;
 public class RoomStateScript : MonoBehaviour {
 
 	public static bool treeCreated = false;
+	private static bool visitedRoom = false;
 
 	// Use this for initialization
 	void Start () {
+		if (!visitedRoom) {
+			audio.Play();
+			visitedRoom = true;
+		}
 		if (treeCreated) {
 			GameObject tree = (GameObject)Instantiate(Resources.Load("Prefabs/Tree"));
 			tree.transform.position = new Vector3(-4.268143f, 6.182477f, 1.886556f);
