@@ -6,10 +6,12 @@ public class LetterScript : MonoBehaviour
 {
     public List<GameObject> word;
     public string letter;
+	public bool canBeDropped;
 
 	void Start ()
     {
         word = new List<GameObject>();
+		canBeDropped = true;
 	}
 	
 	void Update ()
@@ -247,5 +249,13 @@ public class LetterScript : MonoBehaviour
 		float x = transform.position.x - transform.localScale.x / 2.0f - transform.localScale.x * (float)lettersBeforeMe;
 		x += (transform.localScale.x * word.Count) / 2.0f;
 		return new Vector3(x, transform.position.y, transform.position.z);
+	}
+
+	void OnCollisionEnter(Collision collision) {
+		canBeDropped = false;
+	}
+	
+	void OnCollisionExit(Collision collision) {
+		canBeDropped = true;
 	}
 }
