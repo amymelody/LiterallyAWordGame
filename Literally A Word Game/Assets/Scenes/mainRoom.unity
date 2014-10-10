@@ -369,7 +369,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 688283961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e89ffe057abc2b645bb81b7ce2daae5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 50372197810e19846aed24e960d8f4f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1015255076
@@ -381,7 +381,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: aa27bcd31a0a7314aa3bd6a086a78050, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4.60472441
+      value: 3.01584339
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aa27bcd31a0a7314aa3bd6a086a78050, type: 2}
       propertyPath: m_LocalPosition.y
@@ -441,7 +441,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: aa27bcd31a0a7314aa3bd6a086a78050, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.02599192
+      value: 4.46173382
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aa27bcd31a0a7314aa3bd6a086a78050, type: 2}
       propertyPath: m_LocalPosition.y
@@ -606,8 +606,6 @@ GameObject:
   - 54: {fileID: 1180324675}
   - 65: {fileID: 1180324674}
   - 114: {fileID: 1180324673}
-  - 114: {fileID: 1180324672}
-  - 114: {fileID: 1180324671}
   m_Layer: 8
   m_Name: LetterE
   m_TagString: Letter
@@ -615,31 +613,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1180324671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1180324670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBeDropped: 0
---- !u!114 &1180324672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: aa27bcd31a0a7314aa3bd6a086a78050,
-    type: 2}
-  m_PrefabInternal: {fileID: 1124204622}
-  m_GameObject: {fileID: 1180324670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBeDropped: 0
 --- !u!114 &1180324673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -864,8 +837,6 @@ GameObject:
   - 54: {fileID: 1358857988}
   - 65: {fileID: 1358857987}
   - 114: {fileID: 1358857986}
-  - 114: {fileID: 1358857985}
-  - 114: {fileID: 1358857984}
   m_Layer: 8
   m_Name: LetterE
   m_TagString: Letter
@@ -873,31 +844,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1358857984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1358857983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBeDropped: 0
---- !u!114 &1358857985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: aa27bcd31a0a7314aa3bd6a086a78050,
-    type: 2}
-  m_PrefabInternal: {fileID: 1706713428}
-  m_GameObject: {fileID: 1358857983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBeDropped: 0
 --- !u!114 &1358857986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,8 +1064,6 @@ GameObject:
   - 54: {fileID: 1727589754}
   - 65: {fileID: 1727589753}
   - 114: {fileID: 1727589752}
-  - 114: {fileID: 1727589751}
-  - 114: {fileID: 1727589750}
   m_Layer: 8
   m_Name: LetterR
   m_TagString: Letter
@@ -1127,31 +1071,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1727589750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1727589749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBeDropped: 0
---- !u!114 &1727589751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: aa27bcd31a0a7314aa3bd6a086a78050,
-    type: 2}
-  m_PrefabInternal: {fileID: 1015255076}
-  m_GameObject: {fileID: 1727589749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBeDropped: 0
 --- !u!114 &1727589752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,7 +1165,7 @@ Transform:
   m_PrefabInternal: {fileID: 1015255076}
   m_GameObject: {fileID: 1727589749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.60472441, y: 2.06616831, z: -1.59995413}
+  m_LocalPosition: {x: 3.01584339, y: 2.06616831, z: -1.59995413}
   m_LocalScale: {x: .715704501, y: .715704501, z: .715704501}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1653,8 +1572,6 @@ GameObject:
   - 54: {fileID: 1967148939}
   - 65: {fileID: 1967148938}
   - 114: {fileID: 1967148945}
-  - 114: {fileID: 1967148946}
-  - 114: {fileID: 1967148944}
   m_Layer: 8
   m_Name: LetterT
   m_TagString: Letter
@@ -1741,22 +1658,10 @@ Transform:
   m_PrefabInternal: {fileID: 1075686147}
   m_GameObject: {fileID: 1967148937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.02599192, y: 2.06616831, z: -1.59995413}
+  m_LocalPosition: {x: 4.46173382, y: 2.06616831, z: -1.59995413}
   m_LocalScale: {x: .715704501, y: .715704501, z: .715704501}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &1967148944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1967148937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBeDropped: 0
 --- !u!114 &1967148945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1771,17 +1676,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   word: []
   letter: T
-  canBeDropped: 0
---- !u!114 &1967148946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: aa27bcd31a0a7314aa3bd6a086a78050,
-    type: 2}
-  m_PrefabInternal: {fileID: 1075686147}
-  m_GameObject: {fileID: 1967148937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   canBeDropped: 0

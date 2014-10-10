@@ -45,7 +45,6 @@ public class LetterTrackerScript : MonoBehaviour
 				upBalloons.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
 				GameObject.Destroy(GameObject.Find("LetterU"));
 				GameObject.Destroy(GameObject.Find("LetterP"));
-				gameObject.GetComponent<LeeScript>().closeObjects.Clear();
 			}
 			break;
 	    default:

@@ -46,14 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\CloudsTransitionScript.cs" />
      <Compile Include="Assets\Scripts\CloudsTransitionStateScript.cs" />
-     <Compile Include="Assets\Scripts\ItemScript.cs" />
      <Compile Include="Assets\Scripts\LeeScript.cs" />
      <Compile Include="Assets\Scripts\LetterScript.cs" />
      <Compile Include="Assets\Scripts\LetterTrackerScript.cs" />
      <Compile Include="Assets\Scripts\LevelTriggerScript.cs" />
-     <Compile Include="Assets\Scripts\MainRoomScript.cs" />
      <Compile Include="Assets\Scripts\RoomStateScript.cs" />
      <Compile Include="Assets\Scripts\StartScreenStateScript.cs" />
  <Reference Include="Assembly-UnityScript-firstpass">

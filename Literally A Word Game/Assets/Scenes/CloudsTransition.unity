@@ -1586,7 +1586,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1196160600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9e12693f72ddb40b770c11c59d964d, type: 3}
+  m_Script: {fileID: 11500000, guid: 50372197810e19846aed24e960d8f4f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1205004657
@@ -2540,7 +2540,6 @@ GameObject:
   - 54: {fileID: 1816129859}
   - 65: {fileID: 1816129858}
   - 114: {fileID: 1816129857}
-  - 114: {fileID: 1816129856}
   m_Layer: 8
   m_Name: LetterP
   m_TagString: Letter
@@ -2548,19 +2547,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1816129856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: aa27bcd31a0a7314aa3bd6a086a78050,
-    type: 2}
-  m_PrefabInternal: {fileID: 628535270}
-  m_GameObject: {fileID: 1816129855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBeDropped: 0
 --- !u!114 &1816129857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2575,6 +2561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   word: []
   letter: P
+  canBeDropped: 0
 --- !u!65 &1816129858
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3132,7 +3119,6 @@ GameObject:
   - 54: {fileID: 2059637086}
   - 65: {fileID: 2059637085}
   - 114: {fileID: 2059637084}
-  - 114: {fileID: 2059637083}
   m_Layer: 8
   m_Name: LetterU
   m_TagString: Letter
@@ -3140,19 +3126,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2059637083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: aa27bcd31a0a7314aa3bd6a086a78050,
-    type: 2}
-  m_PrefabInternal: {fileID: 395241713}
-  m_GameObject: {fileID: 2059637082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBeDropped: 0
 --- !u!114 &2059637084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3167,6 +3140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   word: []
   letter: U
+  canBeDropped: 0
 --- !u!65 &2059637085
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -18,6 +18,10 @@ public class LetterScript : MonoBehaviour
     {
 	}
 
+	void OnDestroy() {
+		GameObject.Find("Lee").GetComponent<LeeScript>().RemoveObject(gameObject);
+	}
+
     public void PickedUp()
     {
         foreach (GameObject l in this.word)

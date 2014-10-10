@@ -36,7 +36,15 @@ public class LeeScript : MonoBehaviour {
 		jumpSound = (AudioSource)audioSources[0];
 		dropSound = (AudioSource)audioSources[1];
 
+		leftKey = KeyCode.LeftArrow;
+		rightKey = KeyCode.RightArrow;
+		jumpKey = KeyCode.Space;
+		climbUpKey = KeyCode.UpArrow;
+		climbDownKey = KeyCode.DownArrow;
+		pickUpKey = KeyCode.C;
+
 		closeObjects = new ArrayList();
+
 		numObjectsTouching = 0;
 		canJump = false;
 		onLadder = false;
@@ -44,123 +52,136 @@ public class LeeScript : MonoBehaviour {
 		onTopOfLadder = false;
 		facingRight = true;
 		onBalloons = false;
-		leftKey = KeyCode.LeftArrow;
-		rightKey = KeyCode.RightArrow;
-		jumpKey = KeyCode.Space;
-		climbUpKey = KeyCode.UpArrow;
-		climbDownKey = KeyCode.DownArrow;
-		pickUpKey = KeyCode.C;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 		if (!onLadder) {
+			HandleMovement();
+			HandleJumping ();
+			HandlePickUp ();
+		}
 
-			//Handle left and right movement
-			switch (direction) {
-			case MovementDirection.None:
-				setXVelocity(0);
-				break;
-			case MovementDirection.Left:
-				facingRight = false;
-				setXVelocity(-movementSpeed);
-				break;
-			case MovementDirection.Right:
-				facingRight = true;
-				setXVelocity(movementSpeed);
-				break;
-			}
+		HandleClimbing ();
+		MovePickedUpObject ();
+	}
 
-			if (Input.GetKeyDown(rightKey)) {
-				direction = MovementDirection.Right;
-			}
-			if (Input.GetKeyDown(leftKey)) {
+	void HandleMovement()
+	{
+		//Move based on direction
+		switch (direction) {
+		case MovementDirection.None:
+			setXVelocity (0);
+			break;
+		case MovementDirection.Left:
+			facingRight = false;
+			setXVelocity (-movementSpeed);
+			break;
+		case MovementDirection.Right:
+			facingRight = true;
+			setXVelocity (movementSpeed);
+			break;
+		}
+		//Handle movement input
+		if (Input.GetKeyDown (rightKey)) {
+			direction = MovementDirection.Right;
+		}
+		if (Input.GetKeyDown (leftKey)) {
+			direction = MovementDirection.Left;
+		}
+		if (Input.GetKeyUp (rightKey)) {
+			if (Input.GetKey (leftKey)) {
 				direction = MovementDirection.Left;
 			}
-			if (Input.GetKeyUp(rightKey)) {
-				if (Input.GetKey(leftKey)) {
-					direction = MovementDirection.Left;
-				} else {
-					direction = MovementDirection.None;
-				}
+			else {
+				direction = MovementDirection.None;
 			}
-			if (Input.GetKeyUp(leftKey)) {
-				if (Input.GetKey(rightKey)) {
-					direction = MovementDirection.Right;
-				} else {
-					direction = MovementDirection.None;
-				}
+		}
+		if (Input.GetKeyUp (leftKey)) {
+			if (Input.GetKey (rightKey)) {
+				direction = MovementDirection.Right;
 			}
+			else {
+				direction = MovementDirection.None;
+			}
+		}
+	}
 
-			//Handle jumping
-			if (!onBalloons) {
-				if (canJump && Input.GetKeyDown(jumpKey)) {
-					canJump = false;
-					jumpSound.Play();
-					setYVelocity(jumpSpeed);
-				}
-				if (!canJump && Input.GetKeyUp(jumpKey) && rigidbody.velocity.y > 0) {
-					setYVelocity(0);
-				}
+	void HandleJumping ()
+	{
+		if (!onBalloons) {
+			//If you're not in the air already, then jump
+			if (canJump && Input.GetKeyDown (jumpKey)) {
+				canJump = false;
+				jumpSound.Play ();
+				setYVelocity (jumpSpeed);
 			}
+			//If you release the jump key, start falling
+			if (!canJump && Input.GetKeyUp (jumpKey) && rigidbody.velocity.y > 0) {
+				setYVelocity (0);
+			}
+		}
+	}
 
-			//Pick up & drop objects
-			if (Input.GetKeyDown (pickUpKey)) {
-				if (!pickedUpObject) {
-					//Pick Up Object
-					pickedUpObject = GetClosestObject();
-					if (pickedUpObject) {
-						if (pickedUpObject.rigidbody != null) {
-							pickedUpObject.rigidbody.useGravity = false;
-                            pickedUpObject.GetComponent<LetterScript>().PickedUp();
-						}
-						if (pickedUpObject.name.Contains("UPBalloons")) {
-							setYVelocity(movementSpeed);
-							rigidbody.useGravity = false;
-							onBalloons = true;
-						}
+	void HandlePickUp ()
+	{
+		//Pick up & drop objects
+		if (Input.GetKeyDown (pickUpKey)) {
+			if (!pickedUpObject) {
+				//Pick up object
+				pickedUpObject = GetClosestObject ();
+				if (pickedUpObject) {
+					if (pickedUpObject.rigidbody != null) {
+						pickedUpObject.rigidbody.useGravity = false;
+						pickedUpObject.GetComponent<LetterScript> ().PickedUp ();
 					}
-					//Drop Object
-				} else if (canJump || onBalloons) {
-					if (onBalloons) {
-						onBalloons = false;
-						setYVelocity(0);
-						rigidbody.useGravity = true;
-						pickedUpObject.rigidbody.velocity = new Vector3(0,movementSpeed,0);
-						pickedUpObject = null;
-					} else {
-						ItemScript letterScript = (ItemScript)pickedUpObject.GetComponent("ItemScript");
-						if (letterScript) {
-							if (letterScript.canBeDropped) {
-								dropSound.Play();
-								pickedUpObject.rigidbody.useGravity = true;
-                                pickedUpObject.rigidbody.velocity = -Vector3.up;
-                                pickedUpObject.GetComponent<LetterScript>().Dropped();
-								pickedUpObject = null;
-							}
+					if (pickedUpObject.name.Contains ("UPBalloons")) {
+						setYVelocity (movementSpeed);
+						rigidbody.useGravity = false;
+						onBalloons = true;
+					}
+				}
+			}
+			else if (canJump || onBalloons) {
+				//Drop Object
+				if (onBalloons) {
+					onBalloons = false;
+					setYVelocity (0);
+					rigidbody.useGravity = true;
+					pickedUpObject.rigidbody.velocity = new Vector3 (0, movementSpeed, 0);
+					pickedUpObject = null;
+				}
+				else {
+					LetterScript letterScript = (LetterScript)pickedUpObject.GetComponent ("LetterScript");
+					if (letterScript) {
+						if (letterScript.canBeDropped) {
+							dropSound.Play ();
+							pickedUpObject.rigidbody.useGravity = true;
+							pickedUpObject.rigidbody.velocity = -Vector3.up;
+							pickedUpObject.GetComponent<LetterScript> ().Dropped ();
+							pickedUpObject = null;
 						}
 					}
 				}
 			}
 		}
+	}
 
+	void HandleClimbing ()
+	{
 		//Handle climbing
 		if (touchingLadder && !onLadder) {
-			if (onTopOfLadder && Input.GetKeyDown(climbDownKey) ||
-			    !onTopOfLadder && Input.GetKeyDown (climbUpKey)) {
+			if (onTopOfLadder && Input.GetKeyDown (climbDownKey) || !onTopOfLadder && Input.GetKeyDown (climbUpKey)) {
 				onLadder = true;
 				rigidbody.useGravity = false;
-				transform.position = new Vector3(currentLadder.transform.position.x, 
-				                                 transform.position.y,
-				                                 transform.position.z);
-				setXVelocity(0);
+				transform.position = new Vector3 (currentLadder.transform.position.x, transform.position.y, transform.position.z);
+				setXVelocity (0);
 			}
 		}
-
 		if (onLadder) {
 			if (Input.GetKeyUp (climbUpKey) || Input.GetKeyUp (climbDownKey)) {
-				setYVelocity(0);
+				setYVelocity (0);
 			}
 			if (Input.GetKeyDown (climbUpKey)) {
 				setYVelocity (movementSpeed);
@@ -169,7 +190,10 @@ public class LeeScript : MonoBehaviour {
 				setYVelocity (-movementSpeed);
 			}
 		}
+	}
 
+	void MovePickedUpObject ()
+	{
 		//Move picked up object
 		if (pickedUpObject) {
 			float xOffset;
@@ -177,27 +201,28 @@ public class LeeScript : MonoBehaviour {
 			if (onBalloons) {
 				xOffset = transform.localScale.x / 2.0f;
 				yOffset = pickedUpObject.transform.localScale.y / 2.0f;
-			} else {
+			}
+			else {
 				xOffset = transform.localScale.x / 2.0f + pickedUpObject.transform.localScale.x / 2.0f;
 				yOffset = 0;
 			}
 			if (facingRight) {
-				pickedUpObject.transform.position = 
-					new Vector3(transform.position.x + xOffset,
-					            transform.position.y + yOffset,
-					            pickedUpObject.transform.position.z);
-			} else {
-				pickedUpObject.transform.position = 
-					new Vector3(transform.position.x - xOffset,
-					            transform.position.y + yOffset,
-					            pickedUpObject.transform.position.z);
+				pickedUpObject.transform.position = new Vector3 (transform.position.x + xOffset, transform.position.y + yOffset, pickedUpObject.transform.position.z);
+			}
+			else {
+				pickedUpObject.transform.position = new Vector3 (transform.position.x - xOffset, transform.position.y + yOffset, pickedUpObject.transform.position.z);
 			}
 		}
+	}
+
+	public void RemoveObject(GameObject obj) {
+		closeObjects.Remove(obj);
 	}
 
 	GameObject GetClosestObject() {
 		float closestDistance = 99999f;
 		GameObject closestObject = null;
+
 		foreach (GameObject obj in closeObjects) {
 			float distance = Mathf.Abs(obj.transform.position.x - transform.position.x);
 			if (distance < closestDistance) {
@@ -212,7 +237,8 @@ public class LeeScript : MonoBehaviour {
 		if (collision.gameObject.tag.Equals("Floor")) {
 			numObjectsTouching++;
 			RaycastHit rayHit;
-			if (Physics.Raycast(transform.position, -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
+			if (Physics.Raycast(transform.position, 
+			                    -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
 			    Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2.0f, 0, 0),
 			                -Vector3.up, out rayHit, transform.localScale.y / 2.0f) ||
 			    Physics.Raycast(transform.position - new Vector3(transform.localScale.x / 2.0f, 0, 0),
