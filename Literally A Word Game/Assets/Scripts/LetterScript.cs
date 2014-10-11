@@ -19,7 +19,10 @@ public class LetterScript : MonoBehaviour
 	}
 
 	void OnDestroy() {
-		GameObject.Find("Lee").GetComponent<LeeScript>().RemoveObject(gameObject);
+		GameObject lee = GameObject.Find ("Lee");
+		if (lee) {
+			lee.GetComponent<LeeScript>().RemoveObject(gameObject);
+		}
 	}
 
     public void PickedUp()
