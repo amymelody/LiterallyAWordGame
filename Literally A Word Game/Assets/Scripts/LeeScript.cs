@@ -76,10 +76,12 @@ public class LeeScript : MonoBehaviour {
 			break;
 		case MovementDirection.Left:
 			facingRight = false;
+			renderer.material.mainTexture = (Texture2D)Resources.Load("Textures/leeleft");
 			setXVelocity (-movementSpeed);
 			break;
 		case MovementDirection.Right:
 			facingRight = true;
+			renderer.material.mainTexture = (Texture2D)Resources.Load("Textures/leeright");
 			setXVelocity (movementSpeed);
 			break;
 		}
@@ -222,11 +224,14 @@ public class LeeScript : MonoBehaviour {
 	GameObject GetClosestObject() {
 		float closestDistance = 99999f;
 		GameObject closestObject = null;
-
 		foreach (GameObject obj in closeObjects) {
-			float distance = Mathf.Abs(obj.transform.position.x - transform.position.x);
-			if (distance < closestDistance) {
+			float distance = obj.transform.position.x - transform.position.x;
+			if (facingRight && distance >= 0 && distance < closestDistance) {
 				closestDistance = distance;
+				closestObject = obj;
+			}
+			if (!facingRight && distance <= 0 && -distance < closestDistance) {
+				closestDistance = -distance;
 				closestObject = obj;
 			}
 		}
