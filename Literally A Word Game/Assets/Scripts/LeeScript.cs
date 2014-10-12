@@ -13,6 +13,7 @@ public class LeeScript : MonoBehaviour {
 	private AudioSource dropSound;
 
 	private GameObject pickedUpObject;
+	private GameObject closestObject;
 	private GameObject currentLadder;
 	private bool canJump;
 	private bool touchingLadder;
@@ -44,6 +45,7 @@ public class LeeScript : MonoBehaviour {
 		pickUpKey = KeyCode.C;
 
 		closeObjects = new ArrayList();
+		closestObject = null;
 
 		numObjectsTouching = 0;
 		canJump = false;
@@ -58,16 +60,18 @@ public class LeeScript : MonoBehaviour {
 	void Update () {
 
 		if (!onLadder) {
-			HandleMovement();
+			HandleMovement ();
 			HandleJumping ();
 			HandlePickUp ();
 		}
+
+		HighlightClosestObject ();
 
 		HandleClimbing ();
 		MovePickedUpObject ();
 	}
 
-	void HandleMovement()
+	void HandleMovement ()
 	{
 		//Move based on direction
 		switch (direction) {
@@ -132,8 +136,17 @@ public class LeeScript : MonoBehaviour {
 		if (Input.GetKeyDown (pickUpKey)) {
 			if (!pickedUpObject) {
 				//Pick up object
-				pickedUpObject = GetClosestObject ();
+				pickedUpObject = closestObject;
 				if (pickedUpObject) {
+
+					if (closestObject.name.Contains("Letter")) {
+						closestObject.transform.localScale = new Vector3(
+							closestObject.transform.localScale.x / 1.2f,
+							closestObject.transform.localScale.y / 1.2f,
+							closestObject.transform.localScale.z / 1.2f);
+						closestObject = null;
+					}
+
 					if (pickedUpObject.rigidbody != null) {
 						pickedUpObject.rigidbody.useGravity = false;
 						pickedUpObject.GetComponent<LetterScript> ().PickedUp ();
@@ -165,6 +178,22 @@ public class LeeScript : MonoBehaviour {
 							pickedUpObject = null;
 						}
 					}
+				}
+			}
+		}
+	}
+
+	void HighlightClosestObject ()
+	{
+		if (!pickedUpObject) {
+			GameObject tempObj = closestObject;
+			closestObject = GetClosestObject ();
+			if (tempObj != closestObject) {
+				if (tempObj && tempObj.name.Contains ("Letter")) {
+					tempObj.transform.localScale = new Vector3 (tempObj.transform.localScale.x / 1.2f, tempObj.transform.localScale.y / 1.2f, tempObj.transform.localScale.z / 1.2f);
+				}
+				if (closestObject && closestObject.name.Contains ("Letter")) {
+					closestObject.transform.localScale = new Vector3 (closestObject.transform.localScale.x * 1.2f, closestObject.transform.localScale.y * 1.2f, closestObject.transform.localScale.z * 1.2f);
 				}
 			}
 		}
@@ -219,6 +248,9 @@ public class LeeScript : MonoBehaviour {
 
 	public void RemoveObject(GameObject obj) {
 		closeObjects.Remove(obj);
+		if (closestObject == obj) {
+			closestObject = null;
+		}
 	}
 
 	GameObject GetClosestObject() {
