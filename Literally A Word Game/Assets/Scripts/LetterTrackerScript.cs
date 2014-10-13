@@ -54,7 +54,7 @@ public class LetterTrackerScript : MonoBehaviour
                     GameObject letter2 = null;
                     foreach(GameObject l in letters)
                     {
-                        if (wordCenterPosition.y == l.transform.position.y)
+                        if (wordCenterPosition.y <= l.transform.position.y && wordCenterPosition.y + 1 > l.transform.position.y)
                         {
                             float letterX = l.transform.position.x;
                             if (wordCenterPosition.x - 1 < letterX && wordCenterPosition.y + 1 > letterX)

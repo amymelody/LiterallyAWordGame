@@ -276,8 +276,17 @@ public class LetterScript : MonoBehaviour
     {
 		int lettersBeforeMe = word.IndexOf(gameObject);
 		float x = transform.position.x - transform.localScale.x / 2.0f - transform.localScale.x * (float)lettersBeforeMe;
+        float y = 0f;
+        foreach(GameObject l in word)
+        {
+            if(l != gameObject)
+            {
+                y = l.transform.position.y;
+                break;
+            }
+        }
 		x += (transform.localScale.x * word.Count) / 2.0f;
-        return new Vector3(x, transform.position.y, transform.position.z);
+        return new Vector3(x, y, transform.position.z);
 	}
 
 	void OnCollisionEnter(Collision collision)
