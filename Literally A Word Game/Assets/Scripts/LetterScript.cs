@@ -131,7 +131,11 @@ public class LetterScript : MonoBehaviour
                                         word[i].transform.position = new Vector3(tempX, word[i - 1].transform.position.y, word[i - 1].transform.position.z);
                                     }
                                 }
-                                WordMerge(word[0]);
+                                if (myNewIndex == 0)
+                                {
+                                    WordMerge(word[0]);
+                                }
+                                WordMerge(word[word.Count - 1]);
                                 //return;
                             }
                     }
@@ -146,7 +150,7 @@ public class LetterScript : MonoBehaviour
                             word.Add(l);
                             word.Add(this.gameObject);
                             l.GetComponent<LetterScript>().word = new List<GameObject>(word);
-                            WordMerge(word[0]);
+                            WordMerge(word[word.Count - 1]);
                             //return;
                         }
                         else
@@ -165,7 +169,7 @@ public class LetterScript : MonoBehaviour
                                 tempX = word[i - 1].transform.position.x + word[i - 1].transform.lossyScale.x;
                                 word[i].transform.position = new Vector3(tempX, word[i - 1].transform.position.y, word[i - 1].transform.position.z);
                             }
-                            WordMerge(word[0]);
+                            WordMerge(word[word.Count - 1]);
                             //return;
                         }
                     }
@@ -203,8 +207,11 @@ public class LetterScript : MonoBehaviour
                         {
                             letterX = ltr.transform.position.x + ltrSizeX;
                             l.transform.position = new Vector3(letterX, l.transform.position.y, l.transform.position.z);
-                            ltr.GetComponent<LetterScript>().word.Add(l);
-                            l.GetComponent<LetterScript>().word = new List<GameObject>(ltr.GetComponent<LetterScript>().word);
+                            ltrWord.Add(l);
+                            for (int i = 0; i < ltrWord.Count; i++)
+                            {
+                                ltrWord[i].GetComponent<LetterScript>().word = new List<GameObject>(ltrWord);
+                            }
                         }
                         else
                         {
@@ -229,8 +236,11 @@ public class LetterScript : MonoBehaviour
                         {
                             letterX = ltr.transform.position.x - l.transform.lossyScale.x;
                             l.transform.position = new Vector3(letterX, l.transform.position.y, l.transform.position.z);
-                            ltr.GetComponent<LetterScript>().word.Insert(0, l);
-                            l.GetComponent<LetterScript>().word = new List<GameObject>(ltr.GetComponent<LetterScript>().word);
+                            ltrWord.Insert(0, l);
+                            for (int i = 0; i < ltrWord.Count; i++)
+                            {
+                                ltrWord[i].GetComponent<LetterScript>().word = new List<GameObject>(ltrWord);
+                            }
                         }
                         else
                         {
