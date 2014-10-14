@@ -39,7 +39,7 @@ public class LetterTrackerScript : MonoBehaviour
 				    tree.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
 
 				    GameObject treeLadder = (GameObject)Instantiate(Resources.Load("Prefabs/TreeLadder"));
-					treeLadder.transform.position = new Vector3(-4.268143f, -0.5360258f, 0.2479973f);
+					treeLadder.transform.position = new Vector3(-4.268143f, 6.929121f, 0.2479973f);
 			    }
                 break;
 			case "WATER":
