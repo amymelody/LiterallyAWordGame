@@ -1,14 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LetterTrackerScript : MonoBehaviour
-{ 
+{
     private GameObject[] letters;
+    private AudioSource wordSound;
+    private int score;
+    private List<string> startWords;
 
     //Should replace with a "enter new area" function
 	void Start ()
     {
         letters = GameObject.FindGameObjectsWithTag("Letter");
+        Component[] audioSources = GetComponents<AudioSource>();
+        wordSound = (AudioSource)audioSources[2];
+        score = 0;
+
+        startWords = new List<string>();
+        string[] wordsInput = { "ARE", "ART", "AT", "ATE", "AWE", 
+                              "EAR", "EAT", "EATER", "ERE", "EWE", 
+                              "RAT", "RATE", "RAW", 
+                              "TAR", "TEA", "TEAR", "TEE", 
+                              "WAR", "WE", "WEAR", "WERE", "WET" };
+        startWords.AddRange(wordsInput);
+        //Will be lists for each level
 	}
 
 	void Update ()
@@ -119,7 +135,29 @@ public class LetterTrackerScript : MonoBehaviour
                 }
                 break;
 	        default:
+                ExtraWordFind(word, wordCenterPosition);
 	            break;
         }
+    }
+
+    //For words that don't pertain to gameplay
+    public void ExtraWordFind(string word, Vector3 wordCenterPosition)
+    {
+        foreach(string w in startWords)
+        {
+            if(word == w)
+            {
+                score++;
+                wordSound.Play();
+                startWords.Remove(w);
+                break;
+            }
+        }
+    }
+
+    void OnGUI()
+    {
+        GUI.contentColor = Color.black;
+        GUI.Label(new Rect(330, 40, 100, 50), "Score: " + score.ToString());
     }
 }
