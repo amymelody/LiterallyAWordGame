@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class LetterTrackerScript : MonoBehaviour
 {
+	public GUIStyle scoreStyle;
+
     private GameObject[] letters;
     private AudioSource wordSound;
     private int score;
@@ -66,7 +68,8 @@ public class LetterTrackerScript : MonoBehaviour
                     wordSound.Play();
 					GameObject.Destroy(waterfallFloor);
 					GameObject waterfall = (GameObject)Instantiate(Resources.Load ("Prefabs/Waterfall"));
-				waterfall.transform.position = new Vector3(2.100769f, -0.5572749f, 0.2479973f);
+					waterfall.transform.position = new Vector3(2.100769f, -0.5f, 0.2479973f);
+					waterfall.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
 				}
 				break;
             case "UP":
@@ -163,6 +166,6 @@ public class LetterTrackerScript : MonoBehaviour
     void OnGUI()
     {
         GUI.contentColor = Color.black;
-        GUI.Label(new Rect(330, 40, 100, 50), "Score: " + score.ToString());
+        GUI.Label(new Rect(330, 40, 100, 50), "Score: " + score.ToString(), scoreStyle);
     }
 }
