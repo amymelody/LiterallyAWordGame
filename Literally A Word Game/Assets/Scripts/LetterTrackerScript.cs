@@ -46,9 +46,10 @@ public class LetterTrackerScript : MonoBehaviour
     {
         switch (word)
         {
-	        case "TREE":
+            case "TREE":
 			    if (!RoomStateScript.treeCreated)
                 {
+                    wordSound.Play();
 				    RoomStateScript.treeCreated = true;
 				    GameObject tree = (GameObject)Instantiate(Resources.Load("Prefabs/Tree"));
 				    tree.transform.position = new Vector3(-4.268143f, 6.929121f, 1.886556f);
@@ -58,15 +59,18 @@ public class LetterTrackerScript : MonoBehaviour
 					treeLadder.transform.position = new Vector3(-4.268143f, 6.929121f, 0.2479973f);
 			    }
                 break;
-			case "WATER":
+            case "WATER":
 				GameObject waterfallFloor = GameObject.Find ("WaterfallFloor");
-				if (waterfallFloor) {
+                if (waterfallFloor)
+                {
+                    wordSound.Play();
 					GameObject.Destroy(waterfallFloor);
 					GameObject waterfall = (GameObject)Instantiate(Resources.Load ("Prefabs/Waterfall"));
 				waterfall.transform.position = new Vector3(2.100769f, -0.5572749f, 0.2479973f);
 				}
 				break;
-		    case "UP":
+            case "UP":
+                wordSound.Play();
 			    if (!GameObject.Find("UPBalloons(Clone)"))
                 {
 				    GameObject upBalloons = (GameObject)Instantiate(Resources.Load("Prefabs/UPBalloons"));
@@ -97,6 +101,7 @@ public class LetterTrackerScript : MonoBehaviour
 			    }
 			    break;
             case "DROP":
+                wordSound.Play();
                 //How to check level? Should only happen in "CloudLevel"
                 GameObject[] floors = GameObject.FindGameObjectsWithTag("Floor");
                 foreach(GameObject f in floors)
