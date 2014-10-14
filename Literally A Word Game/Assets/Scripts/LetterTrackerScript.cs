@@ -79,7 +79,7 @@ public class LetterTrackerScript : MonoBehaviour
                 {
 				    GameObject upBalloons = (GameObject)Instantiate(Resources.Load("Prefabs/UPBalloons"));
 				    upBalloons.transform.position = new Vector3(wordCenterPosition.x,
-				                                                wordCenterPosition.y + upBalloons.transform.localScale.y / 2.0f,
+				                                                wordCenterPosition.y + upBalloons.transform.localScale.y * 3f/4f,
 				                                                wordCenterPosition.z);
 				    upBalloons.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
                     GameObject letter1 = null;
