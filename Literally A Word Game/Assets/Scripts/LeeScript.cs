@@ -204,10 +204,7 @@ public class LeeScript : MonoBehaviour {
 		//Handle climbing
 		if (touchingLadder && !onLadder) {
 			if (onTopOfLadder && Input.GetKeyDown (climbDownKey) || !onTopOfLadder && Input.GetKeyDown (climbUpKey)) {
-				onLadder = true;
-				rigidbody.useGravity = false;
-				transform.position = new Vector3 (currentLadder.transform.position.x, transform.position.y, transform.position.z);
-				setXVelocity (0);
+				GetOnLadder ();
 			}
 		}
 		if (onLadder) {
@@ -221,6 +218,16 @@ public class LeeScript : MonoBehaviour {
 				setYVelocity (-movementSpeed);
 			}
 		}
+	}
+
+	void GetOnLadder ()
+	{
+		direction = MovementDirection.None;
+		onLadder = true;
+		rigidbody.useGravity = false;
+		transform.position = new Vector3 (currentLadder.transform.position.x, transform.position.y, transform.position.z);
+		setXVelocity (0);
+		setYVelocity(0);
 	}
 
 	void MovePickedUpObject ()
@@ -299,6 +306,10 @@ public class LeeScript : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider) {
+		if (collider.gameObject.tag.Equals("Water")) {
+			Physics.gravity *= 0.5f;
+		}
+
 		if (collider.gameObject.tag.Equals("Climbable")) {
 			touchingLadder = true;
 			currentLadder = collider.gameObject;
@@ -314,7 +325,7 @@ public class LeeScript : MonoBehaviour {
 					rigidbody.useGravity = false;
 					canJump = true;
 					onTopOfLadder = true;
-				}
+				} 
 			}
 		}
 
@@ -324,6 +335,10 @@ public class LeeScript : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider collider) {
+		if (collider.gameObject.tag.Equals("Water")) {
+			Physics.gravity *= 2f;
+		}
+
 		if (collider.gameObject.tag.Equals("Climbable")) {
 			RaycastHit rayHit;
 			if (Physics.Raycast(transform.position - new Vector3(0, transform.localScale.y / 4.0f, 0), 

@@ -35,13 +35,21 @@ public class LetterTrackerScript : MonoBehaviour
                 {
 				    RoomStateScript.treeCreated = true;
 				    GameObject tree = (GameObject)Instantiate(Resources.Load("Prefabs/Tree"));
-				    tree.transform.position = new Vector3(-4.268143f, 6.182477f, 1.886556f);
+				    tree.transform.position = new Vector3(-4.268143f, 6.929121f, 1.886556f);
 				    tree.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
 
 				    GameObject treeLadder = (GameObject)Instantiate(Resources.Load("Prefabs/TreeLadder"));
-				    treeLadder.transform.position = new Vector3(-4.268143f, 6.182477f, 0.2479973f);
+					treeLadder.transform.position = new Vector3(-4.268143f, 6.929121f, 0.2479973f);
 			    }
                 break;
+			case "WATER":
+				GameObject waterfallFloor = GameObject.Find ("WaterfallFloor");
+				if (waterfallFloor) {
+					GameObject.Destroy(waterfallFloor);
+					GameObject waterfall = (GameObject)Instantiate(Resources.Load ("Prefabs/Waterfall"));
+					waterfall.transform.position = new Vector3(1.88981f, -0.3420415f, 0.2479973f);
+				}
+				break;
 		    case "UP":
 			    if (!GameObject.Find("UPBalloons(Clone)"))
                 {
