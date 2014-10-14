@@ -4,6 +4,7 @@ using System.Collections;
 public class RoomStateScript : MonoBehaviour {
 
 	public static bool treeCreated = false;
+	public static bool waterfallCreated = false;
 	public bool fellDownWaterfall = false;
 	private static bool visitedRoom = false;
 
@@ -21,14 +22,23 @@ public class RoomStateScript : MonoBehaviour {
 		}
 		if (treeCreated) {
 			GameObject tree = (GameObject)Instantiate(Resources.Load("Prefabs/Tree"));
-			tree.transform.position = new Vector3(-4.268143f, 6.182477f, 1.886556f);
+			tree.transform.position = new Vector3(-4.268143f, 6.929121f, 1.886556f);
 			tree.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
 			
 			GameObject treeLadder = (GameObject)Instantiate(Resources.Load("Prefabs/TreeLadder"));
-			treeLadder.transform.position = new Vector3(-4.268143f, 6.182477f, 0.2479973f);
+			treeLadder.transform.position = new Vector3(-4.268143f, 6.929121f, 0.2479973f);
+		}
+		if (waterfallCreated) {
+			GameObject waterfallFloor = GameObject.Find ("WaterfallFloor");
+			if (waterfallFloor) {
+				GameObject.Destroy(waterfallFloor);
+			}
+			GameObject waterfall = (GameObject)Instantiate(Resources.Load ("Prefabs/Waterfall"));
+			waterfall.transform.position = new Vector3(2.100769f, -0.5f, 0.2479973f);
+			waterfall.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
 		}
 	}
-
+	
 	void Update() {
 		if (fellDownWaterfall) {
 			timeElapsed += Time.deltaTime;

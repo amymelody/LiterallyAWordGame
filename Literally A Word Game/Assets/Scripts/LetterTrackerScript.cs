@@ -8,7 +8,7 @@ public class LetterTrackerScript : MonoBehaviour
 
     private GameObject[] letters;
     private AudioSource wordSound;
-    private int score;
+    static private int score = 0;
     private List<string> startWords;
 
     //Should replace with a "enter new area" function
@@ -17,7 +17,6 @@ public class LetterTrackerScript : MonoBehaviour
         letters = GameObject.FindGameObjectsWithTag("Letter");
         Component[] audioSources = GetComponents<AudioSource>();
         wordSound = (AudioSource)audioSources[2];
-        score = 0;
 
         startWords = new List<string>();
         string[] wordsInput = { "ARE", "ART", "AT", "ATE", "AWE", 
@@ -63,9 +62,11 @@ public class LetterTrackerScript : MonoBehaviour
                 break;
             case "WATER":
 				GameObject waterfallFloor = GameObject.Find ("WaterfallFloor");
-                if (waterfallFloor)
+                if (waterfallFloor && !RoomStateScript.waterfallCreated)
                 {
                     wordSound.Play();
+					RoomStateScript.waterfallCreated = true;
+					
 					GameObject.Destroy(waterfallFloor);
 					GameObject waterfall = (GameObject)Instantiate(Resources.Load ("Prefabs/Waterfall"));
 					waterfall.transform.position = new Vector3(2.100769f, -0.5f, 0.2479973f);
