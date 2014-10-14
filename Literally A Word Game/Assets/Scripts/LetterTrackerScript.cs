@@ -55,7 +55,7 @@ public class LetterTrackerScript : MonoBehaviour
 				    tree.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
 
 				    GameObject treeLadder = (GameObject)Instantiate(Resources.Load("Prefabs/TreeLadder"));
-					treeLadder.transform.position = new Vector3(-4.268143f, 6.929121f, 0.2479973f);
+					treeLadder.transform.position = new Vector3(-4.268143f, -0.5360258f, 0.2479973f);
 			    }
                 break;
 			case "WATER":
@@ -63,7 +63,7 @@ public class LetterTrackerScript : MonoBehaviour
 				if (waterfallFloor) {
 					GameObject.Destroy(waterfallFloor);
 					GameObject waterfall = (GameObject)Instantiate(Resources.Load ("Prefabs/Waterfall"));
-					waterfall.transform.position = new Vector3(1.88981f, -0.3420415f, 0.2479973f);
+				waterfall.transform.position = new Vector3(2.100769f, -0.5572749f, 0.2479973f);
 				}
 				break;
 		    case "UP":
