@@ -1,0 +1,5 @@
+Time spent in main room before creating something: 18.55793s
+Time spent in clouds transition before going to clouds level: 17.1149s
+Time to complete clouds level: 261.7687s
+Time spent in forest transition before going to clouds level: 0s
+Time to complete forest level: 0s

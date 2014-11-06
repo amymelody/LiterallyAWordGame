@@ -13,8 +13,8 @@ GameObject:
   - 65: {fileID: 6500002}
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400002}
-  - 114: {fileID: 11400000}
   - 54: {fileID: 5400000}
+  - 114: {fileID: 11400000}
   m_Layer: 8
   m_Name: UPBalloons
   m_TagString: Letter
@@ -98,7 +98,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 1, z: 5}
+  m_Size: {x: 1, y: 1, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -108,10 +108,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa70fe03d1d73a54c944e086e34e4762, type: 3}
+  m_Script: {fileID: 11500000, guid: ba8213557354dde48a5311a976b0bce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canBeDropped: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,6 +124,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   word: []
   letter: 
+  defaultTex: {fileID: 0}
+  currentTex: {fileID: 0}
+  selectTex: {fileID: 0}
+  canBeDropped: 0
+  objectTouching: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

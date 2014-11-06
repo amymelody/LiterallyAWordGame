@@ -19,7 +19,7 @@ GameObject:
   - 82: {fileID: 8200004}
   m_Layer: 9
   m_Name: Lee
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: -3.24229002, y: 3.44664407, z: 0}
+  m_LocalPosition: {x: -14.6447296, y: 8.06884193, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
